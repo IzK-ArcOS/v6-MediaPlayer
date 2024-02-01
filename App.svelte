@@ -1,9 +1,25 @@
 <script lang="ts">
-  import { App } from "$types/app";
+  import { onMount } from "svelte";
   import "./css/main.css";
+  import { Runtime } from "./ts/runtime";
+  import Controls from "./Components/Controls.svelte";
+  import Bar from "./Components/Bar.svelte";
+  import File from "./Components/File.svelte";
 
-  export let app: App;
+  export let runtime: Runtime;
+
+  let audio: HTMLAudioElement;
+
+  onMount(() => {
+    runtime.setPlayer(audio);
+  });
+
+  const { State, path } = runtime;
 </script>
 
-<h1>Hello, World!</h1>
-<p>Working! App {app.metadata.name}, version {app.metadata.version}.</p>
+<audio bind:this={audio}></audio>
+{#if $State && $path}
+  <Controls {runtime} />
+  <Bar {runtime} />
+  <File {runtime} />
+{/if}
