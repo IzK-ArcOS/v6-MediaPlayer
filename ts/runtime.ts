@@ -1,12 +1,18 @@
+import { getAppById, spawnApp, spawnOverlay } from "$ts/apps";
 import { AppRuntime } from "$ts/apps/runtime";
 import { MediaPlayerIcon } from "$ts/images/apps";
+import { AudioMimeIcon } from "$ts/images/mime";
 import { Process } from "$ts/process";
+import { getParentDirectory } from "$ts/server/fs/dir";
 import { readFile } from "$ts/server/fs/file";
 import { getMimeIcon } from "$ts/server/fs/mime";
 import { FileProgress } from "$ts/server/fs/progress";
 import { pathToFriendlyName, pathToFriendlyPath } from "$ts/server/fs/util";
+import { MimeTypeIcons } from "$ts/stores/filesystem";
 import { Store } from "$ts/writable";
 import type { App, AppMutator } from "$types/app";
+import { MediaPlayerAccelerators } from "./accelerators";
+import { MediaPlayerAltMenu } from "./altmenu";
 import { PlayerState } from "./types";
 
 export class Runtime extends AppRuntime {
@@ -18,11 +24,17 @@ export class Runtime extends AppRuntime {
   constructor(app: App, mutator: AppMutator, process: Process) {
     super(app, mutator, process);
 
+    this.loadAltMenu(...MediaPlayerAltMenu(this))
+    this.process.accelerator.store.push(...MediaPlayerAccelerators(this))
     this.openedFile.subscribe(async (v) => {
       if (!v) return;
 
       await this.readFile(v);
     });
+
+    if (process.args.length && typeof process.args[0] === "string") {
+      this.handleOpenFile(process.args[0])
+    }
   }
 
   async readFile(v: string) {
@@ -113,6 +125,28 @@ export class Runtime extends AppRuntime {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
     return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+  }
+
+  public openFileLocation() {
+    const path = this.path.get();
+
+    if (!path) return
+
+    const split = path.split("/");
+    const filename = split[split.length - 1];
+
+    spawnApp("FileManager", 0, [path.replace(`/${filename}`, ""), path])
+  }
+
+  public openFile() {
+    spawnOverlay(getAppById("LoadSaveDialog"), this.pid, [
+      {
+        title: "Select an audio file to open",
+        icon: MediaPlayerIcon,
+        startDir: getParentDirectory(this.path.get() || "./"),
+        extensions: MimeTypeIcons[AudioMimeIcon]
+      },
+    ]);
   }
 
   public async LoadProgress(v: string = this.path.get()) {

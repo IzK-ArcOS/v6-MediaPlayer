@@ -22,4 +22,7 @@
   <Controls {runtime} />
   <Bar {runtime} />
   <File {runtime} />
+{:else}
+  <h2>No File Opened!</h2>
+  <p>Select an audio to play from the File Menu or by pressing Alt+O.</p>
 {/if}

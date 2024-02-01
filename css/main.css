@@ -1,3 +1,12 @@
+#MediaPlayer {
+  overflow: visible;
+}
+
+#MediaPlayer #LoadSaveDialog {
+  max-width: unset !important;
+  max-height: unset !important;
+}
+
 #MediaPlayer > div.body {
   padding: 20px 30px;
 }
