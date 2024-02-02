@@ -18,7 +18,7 @@ import { PlayerState } from "./types";
 export class Runtime extends AppRuntime {
   public path = Store<string>();
   public url = Store<string>();
-  public player = document.createElement("audio");
+  public player: HTMLAudioElement;
   public State = Store<PlayerState>({ paused: true, current: 0, duration: 100 });
 
   constructor(app: App, mutator: AppMutator, process: Process) {

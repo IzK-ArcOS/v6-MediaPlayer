@@ -30,5 +30,9 @@ export const MediaPlayer: App = {
     maximize: false,
     close: true
   },
+  acceleratorDescriptions: {
+    "alt+o": "Open an audio file",
+    "alt+shift+o": "Open file location of audio file"
+  },
   glass: true
 }
