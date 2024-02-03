@@ -9,6 +9,11 @@
 
 #MediaPlayer > div.body {
   padding: 20px 30px;
+  resize: both;
+}
+
+#MediaPlayer video {
+  width: 100%;
 }
 
 #MediaPlayer > div.body div.controls {
@@ -26,12 +31,25 @@
   padding: 0;
   box-shadow: none;
   min-width: unset;
+  border-radius: 50%;
 }
 
+#MediaPlayer > div.body div.controls button.forward,
+#MediaPlayer > div.body div.controls button.reverse {
+  width: 30px;
+  height: 30px;
+}
+
+#MediaPlayer > div.body div.controls button.stop {
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+}
 #MediaPlayer > div.body div.controls div.group {
   display: flex;
   border-radius: 6px;
   overflow: hidden;
+  gap: 10px;
 }
 
 #MediaPlayer > div.body div.controls div.timestamp {
@@ -46,6 +64,7 @@
   border: var(--button-glass-bg) 1px solid;
   overflow: hidden;
   margin: 20px 0;
+  margin-top: 10px;
 }
 
 #MediaPlayer > div.body div.bar div.inner {
@@ -63,4 +82,12 @@
 
 #MediaPlayer > div.body div.file img {
   height: 24px;
+}
+#MediaPlayer > div.body video {
+  display: none;
+  margin-bottom: 20px;
+}
+
+#MediaPlayer > div.body video.show {
+  display: block;
 }

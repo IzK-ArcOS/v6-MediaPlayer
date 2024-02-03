@@ -17,17 +17,17 @@ export const MediaPlayer: App = {
   size: { w: 442, h: NaN },
   pos: { x: 100, y: 100 },
   minSize: { w: 442, h: 130 },
-  maxSize: { w: 442, h: NaN },
+  maxSize: { w: NaN, h: NaN },
   state: {
     minimized: false,
     maximized: false,
     headless: false,
     fullscreen: false,
-    resizable: false
+    resizable: true
   },
   controls: {
     minimize: true,
-    maximize: false,
+    maximize: true,
     close: true
   },
   acceleratorDescriptions: {

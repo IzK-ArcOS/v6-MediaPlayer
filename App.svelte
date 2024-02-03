@@ -8,20 +8,23 @@
 
   export let runtime: Runtime;
 
-  let audio: HTMLAudioElement;
+  let audio: HTMLVideoElement;
 
   onMount(() => {
     runtime.setPlayer(audio);
   });
 
-  const { State, path } = runtime;
+  const { State, path, isVideo } = runtime;
 </script>
 
-<audio bind:this={audio}></audio>
+<video bind:this={audio} class:show={$isVideo}>
+  <track kind="captions" /></video
+>
 {#if $State && $path}
-  <Controls {runtime} />
   <Bar {runtime} />
-  <File {runtime} />
+  <Controls {runtime} />
+
+  <!-- <File {runtime} /> -->
 {:else}
   <h2>No File Opened!</h2>
   <p>Select an audio to play from the File Menu or by pressing Alt+O.</p>

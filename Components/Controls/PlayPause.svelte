@@ -12,21 +12,15 @@
   function pause() {
     runtime.Pause();
   }
+
+  function toggle() {
+    if ($State.paused) runtime.Play();
+    else runtime.Pause();
+  }
 </script>
 
 <div class="group playpause">
-  <button
-    class="material-icons-round play"
-    on:click={play}
-    class:suggested={!$State.paused}
-  >
-    play_arrow
-  </button>
-  <button
-    class="material-icons-round pause"
-    on:click={pause}
-    class:suggested={$State.paused}
-  >
-    pause
+  <button class="material-icons-round play suggested" on:click={toggle}>
+    {$State.paused ? "play_arrow" : "pause"}
   </button>
 </div>

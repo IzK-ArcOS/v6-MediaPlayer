@@ -8,6 +8,4 @@
   }
 </script>
 
-<div class="group stop">
-  <button class="material-icons-round" on:click={stop}>stop</button>
-</div>
+<button class="material-icons-round stop" on:click={stop}>stop</button>

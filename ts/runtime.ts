@@ -1,13 +1,13 @@
 import { getAppById, spawnApp, spawnOverlay } from "$ts/apps";
 import { AppRuntime } from "$ts/apps/runtime";
 import { MediaPlayerIcon } from "$ts/images/apps";
-import { AudioMimeIcon } from "$ts/images/mime";
+import { AudioMimeIcon, VideoMimeIcon } from "$ts/images/mime";
 import { Process } from "$ts/process";
 import { getParentDirectory } from "$ts/server/fs/dir";
 import { readFile } from "$ts/server/fs/file";
 import { getMimeIcon } from "$ts/server/fs/mime";
 import { FileProgress } from "$ts/server/fs/progress";
-import { pathToFriendlyName, pathToFriendlyPath } from "$ts/server/fs/util";
+import { parseExtension, pathToFriendlyName, pathToFriendlyPath } from "$ts/server/fs/util";
 import { MimeTypeIcons } from "$ts/stores/filesystem";
 import { Store } from "$ts/writable";
 import type { App, AppMutator } from "$types/app";
@@ -18,8 +18,9 @@ import { PlayerState } from "./types";
 export class Runtime extends AppRuntime {
   public path = Store<string>();
   public url = Store<string>();
-  public player: HTMLAudioElement;
+  public player: HTMLVideoElement;
   public State = Store<PlayerState>({ paused: true, current: 0, duration: 100 });
+  public isVideo = Store<boolean>(false);
 
   constructor(app: App, mutator: AppMutator, process: Process) {
     super(app, mutator, process);
@@ -51,6 +52,9 @@ export class Runtime extends AppRuntime {
       return;
     }
 
+    const ext = parseExtension(file.path);
+
+    this.isVideo.set(MimeTypeIcons[VideoMimeIcon].includes(ext))
     this.url.set(URL.createObjectURL(file.data));
     this.setWindowTitle(pathToFriendlyName(v), false)
     this.setWindowIcon(getMimeIcon(v))
@@ -64,7 +68,7 @@ export class Runtime extends AppRuntime {
     });
   }
 
-  public setPlayer(player: HTMLAudioElement) {
+  public setPlayer(player: HTMLVideoElement) {
     this.player = player;
 
     this.player.addEventListener("timeupdate", () => this.updateState());
