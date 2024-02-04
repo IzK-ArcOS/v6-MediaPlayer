@@ -5,6 +5,7 @@
   import Controls from "./Components/Controls.svelte";
   import Bar from "./Components/Bar.svelte";
   import File from "./Components/File.svelte";
+  import { MediaPlayerIcon } from "$ts/images/apps";
 
   export let runtime: Runtime;
 
@@ -21,11 +22,19 @@
   <track kind="captions" /></video
 >
 {#if $State && $path}
+  {#if !$isVideo}
+    <div class="audio-visual">
+      <span class="material-icons-round">music_note</span>
+    </div>
+  {/if}
   <Bar {runtime} />
   <Controls {runtime} />
 
   <!-- <File {runtime} /> -->
 {:else}
-  <h2>No File Opened!</h2>
-  <p>Select an audio to play from the File Menu or by pressing Alt+O.</p>
+  <div class="no-file">
+    <img src={MediaPlayerIcon} alt="" />
+    <h2>No File Opened!</h2>
+    <p>Select a file to play from the File Menu or by pressing Alt+O.</p>
+  </div>
 {/if}

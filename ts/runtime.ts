@@ -19,8 +19,9 @@ export class Runtime extends AppRuntime {
   public path = Store<string>();
   public url = Store<string>();
   public player: HTMLVideoElement;
-  public State = Store<PlayerState>({ paused: true, current: 0, duration: 100 });
+  public State = Store<PlayerState>({ paused: true, current: 0, duration: 0 });
   public isVideo = Store<boolean>(false);
+  public Loaded = Store<boolean>(false);
 
   constructor(app: App, mutator: AppMutator, process: Process) {
     super(app, mutator, process);
@@ -40,14 +41,19 @@ export class Runtime extends AppRuntime {
 
   async readFile(v: string) {
     this.path.set(v);
+    this.Loaded.set(false);
 
     const { setDone, setErrors } = await this.LoadProgress(v);
 
     const file = await readFile(v);
 
+
     if (!file) {
       setErrors(1);
       setDone(1);
+
+      this.Loaded.set(true);
+
 
       return;
     }
@@ -65,6 +71,8 @@ export class Runtime extends AppRuntime {
 
     setTimeout(() => {
       this.player.play();
+      this.Loaded.set(true);
+
     });
   }
 
@@ -113,7 +121,7 @@ export class Runtime extends AppRuntime {
     if (!this.player) return {
       paused: true,
       current: 0,
-      duration: 100,
+      duration: 0,
     };
 
     const state = {
@@ -145,10 +153,10 @@ export class Runtime extends AppRuntime {
   public openFile() {
     spawnOverlay(getAppById("LoadSaveDialog"), this.pid, [
       {
-        title: "Select an audio file to open",
+        title: "Select an audio or video file to open",
         icon: MediaPlayerIcon,
         startDir: getParentDirectory(this.path.get() || "./"),
-        extensions: MimeTypeIcons[AudioMimeIcon]
+        extensions: [...MimeTypeIcons[AudioMimeIcon], ...MimeTypeIcons[VideoMimeIcon]]
       },
     ]);
   }

@@ -4,7 +4,7 @@ import { Runtime } from "../runtime";
 
 export function AudioMenu(runtime: Runtime): ContextMenuItem {
   return {
-    caption: "Audio",
+    caption: "Playback",
     subItems: [
       {
         caption: "Play",

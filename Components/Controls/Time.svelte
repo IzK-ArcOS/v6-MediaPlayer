@@ -3,14 +3,14 @@
 
   export let runtime: Runtime;
 
-  const { State } = runtime;
+  const { State, Loaded } = runtime;
 
   let current = "--:--";
   let duration = "--:--";
 
   State.subscribe((v) => {
-    current = runtime.formatTime(v.current);
-    duration = runtime.formatTime(v.duration);
+    current = $Loaded ? runtime.formatTime(v.current) : "--:--";
+    duration = $Loaded ? runtime.formatTime(v.duration) : "--:--";
   });
 </script>
 

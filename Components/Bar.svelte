@@ -3,10 +3,10 @@
 
   export let runtime: Runtime;
 
-  const { State } = runtime;
+  const { State, Loaded } = runtime;
 </script>
 
-<div class="bar">
+<div class="bar" class:bounce={!$Loaded}>
   <div
     class="inner"
     style="--w: {(100 / $State.duration) * $State.current}%;"
