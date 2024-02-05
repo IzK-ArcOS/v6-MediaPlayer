@@ -9,6 +9,7 @@ import { getMimeIcon } from "$ts/server/fs/mime";
 import { FileProgress } from "$ts/server/fs/progress";
 import { parseExtension, pathToFriendlyName, pathToFriendlyPath } from "$ts/server/fs/util";
 import { MimeTypeIcons } from "$ts/stores/filesystem";
+import { ProcessStack } from "$ts/stores/process";
 import { Store } from "$ts/writable";
 import type { App, AppMutator } from "$types/app";
 import { MediaPlayerAccelerators } from "./accelerators";
@@ -47,6 +48,7 @@ export class Runtime extends AppRuntime {
 
     const file = await readFile(v);
 
+    if (!ProcessStack.isPid(this.pid, true)) return;
 
     if (!file) {
       setErrors(1);
