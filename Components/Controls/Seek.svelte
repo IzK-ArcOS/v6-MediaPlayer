@@ -13,10 +13,6 @@
 </script>
 
 <div class="group seek">
-  <button class="material-icons-round reverse" on:click={rewind}>
-    fast_rewind
-  </button>
-  <button class="material-icons-round forward" on:click={forward}>
-    fast_forward
-  </button>
+  <button class="material-icons-round reverse" on:click={rewind}> fast_rewind </button>
+  <button class="material-icons-round forward" on:click={forward}> fast_forward </button>
 </div>

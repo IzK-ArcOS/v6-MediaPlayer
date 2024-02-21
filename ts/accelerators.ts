@@ -9,14 +9,14 @@ export const MediaPlayerAccelerators: (runtime: Runtime) => AppKeyCombinations =
       shift: true,
       action() {
         runtime.openFileLocation();
-      }
+      },
     },
     {
       key: "o",
       alt: true,
       action() {
         runtime.openFile();
-      }
+      },
     },
-  ]
-}
+  ];
+};

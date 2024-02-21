@@ -27,8 +27,8 @@ export class Runtime extends AppRuntime {
   constructor(app: App, mutator: AppMutator, process: Process) {
     super(app, mutator, process);
 
-    this.loadAltMenu(...MediaPlayerAltMenu(this))
-    this.process.accelerator.store.push(...MediaPlayerAccelerators(this))
+    this.loadAltMenu(...MediaPlayerAltMenu(this));
+    this.process.accelerator.store.push(...MediaPlayerAccelerators(this));
     this.openedFile.subscribe(async (v) => {
       if (!v) return;
 
@@ -36,7 +36,7 @@ export class Runtime extends AppRuntime {
     });
 
     if (process.args.length && typeof process.args[0] === "string") {
-      this.handleOpenFile(process.args[0])
+      this.handleOpenFile(process.args[0]);
     }
   }
 
@@ -56,16 +56,15 @@ export class Runtime extends AppRuntime {
 
       this.Loaded.set(true);
 
-
       return;
     }
 
     const ext = parseExtension(file.path);
 
-    this.isVideo.set(MimeTypeIcons[VideoMimeIcon].includes(ext))
+    this.isVideo.set(MimeTypeIcons[VideoMimeIcon].includes(ext));
     this.url.set(URL.createObjectURL(file.data));
-    this.setWindowTitle(pathToFriendlyName(v), false)
-    this.setWindowIcon(getMimeIcon(v))
+    this.setWindowTitle(pathToFriendlyName(v), false);
+    this.setWindowIcon(getMimeIcon(v));
 
     this.Reset();
 
@@ -74,7 +73,6 @@ export class Runtime extends AppRuntime {
     setTimeout(() => {
       this.player.play();
       this.Loaded.set(true);
-
     });
   }
 
@@ -113,24 +111,25 @@ export class Runtime extends AppRuntime {
   }
 
   public Stop() {
-    if (!this.player) return
+    if (!this.player) return;
 
     this.player.pause();
     this.player.currentTime = 0;
   }
 
   public updateState() {
-    if (!this.player) return {
-      paused: true,
-      current: 0,
-      duration: 0,
-    };
+    if (!this.player)
+      return {
+        paused: true,
+        current: 0,
+        duration: 0,
+      };
 
     const state = {
       paused: this.player.paused,
       current: this.player.currentTime,
-      duration: this.player.duration
-    }
+      duration: this.player.duration,
+    };
 
     this.State.set(state);
   }
@@ -144,12 +143,12 @@ export class Runtime extends AppRuntime {
   public openFileLocation() {
     const path = this.path.get();
 
-    if (!path) return
+    if (!path) return;
 
     const split = path.split("/");
     const filename = split[split.length - 1];
 
-    spawnApp("FileManager", 0, [path.replace(filename, "") || ".", path])
+    spawnApp("FileManager", 0, [path.replace(filename, "") || ".", path]);
   }
 
   public openFile() {
@@ -158,22 +157,26 @@ export class Runtime extends AppRuntime {
         title: "Select an audio or video file to open",
         icon: MediaPlayerIcon,
         startDir: getParentDirectory(this.path.get() || "./"),
-        extensions: [...MimeTypeIcons[AudioMimeIcon], ...MimeTypeIcons[VideoMimeIcon]]
+        extensions: [...MimeTypeIcons[AudioMimeIcon], ...MimeTypeIcons[VideoMimeIcon]],
       },
     ]);
   }
 
   public async LoadProgress(v: string = this.path.get()) {
-    return await FileProgress({
-      caption: "Loading this amazing file...",
-      subtitle: `Home/${pathToFriendlyPath(v)}`,
-      icon: MediaPlayerIcon,
-      max: 1,
-      done: 0,
-      type: "quantity",
-      waiting: false,
-      working: true,
-      errors: 0
-    }, this.pid, false)
+    return await FileProgress(
+      {
+        caption: "Loading this amazing file...",
+        subtitle: `Home/${pathToFriendlyPath(v)}`,
+        icon: MediaPlayerIcon,
+        max: 1,
+        done: 0,
+        type: "quantity",
+        waiting: false,
+        working: true,
+        errors: 0,
+      },
+      this.pid,
+      false
+    );
   }
 }

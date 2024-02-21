@@ -11,9 +11,9 @@ export function FileMenu(runtime: Runtime): ContextMenuItem {
         caption: "Open...",
         icon: "file_open",
         action() {
-          runtime.openFile()
+          runtime.openFile();
         },
-        accelerator: "Alt+O"
+        accelerator: "Alt+O",
       },
       {
         caption: "Open file location",
@@ -22,17 +22,17 @@ export function FileMenu(runtime: Runtime): ContextMenuItem {
           runtime.openFileLocation();
         },
         disabled: () => !runtime.path.get(),
-        accelerator: "Alt+Shift+O"
+        accelerator: "Alt+Shift+O",
       },
       SEP_ITEM,
       {
         caption: "Exit",
         action: () => {
-          runtime.closeApp()
+          runtime.closeApp();
         },
         image: ShutdownIcon,
-        accelerator: "Alt+Q"
-      }
-    ]
-  }
+        accelerator: "Alt+Q",
+      },
+    ],
+  };
 }

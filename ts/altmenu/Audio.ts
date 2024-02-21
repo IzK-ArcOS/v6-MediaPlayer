@@ -10,24 +10,24 @@ export function AudioMenu(runtime: Runtime): ContextMenuItem {
         caption: "Play",
         icon: "play_arrow",
         action() {
-          runtime.Play()
-        }
+          runtime.Play();
+        },
       },
       {
         caption: "Pause",
         icon: "pause",
         action() {
-          runtime.Pause()
-        }
+          runtime.Pause();
+        },
       },
       SEP_ITEM,
       {
         caption: "Stop",
         icon: "stop",
         action() {
-          runtime.Stop()
-        }
+          runtime.Stop();
+        },
       },
-    ]
-  }
+    ],
+  };
 }

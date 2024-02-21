@@ -1,11 +1,10 @@
 <script lang="ts">
+  import { MediaPlayerIcon } from "$ts/images/apps";
   import { onMount } from "svelte";
+  import Bar from "./Components/Bar.svelte";
+  import Controls from "./Components/Controls.svelte";
   import "./css/main.css";
   import { Runtime } from "./ts/runtime";
-  import Controls from "./Components/Controls.svelte";
-  import Bar from "./Components/Bar.svelte";
-  import File from "./Components/File.svelte";
-  import { MediaPlayerIcon } from "$ts/images/apps";
 
   export let runtime: Runtime;
 
@@ -18,9 +17,7 @@
   const { State, path, isVideo } = runtime;
 </script>
 
-<video bind:this={audio} class:show={$isVideo}>
-  <track kind="captions" /></video
->
+<video bind:this={audio} class:show={$isVideo}> <track kind="captions" /></video>
 {#if $State && $path}
   {#if !$isVideo}
     <div class="audio-visual">

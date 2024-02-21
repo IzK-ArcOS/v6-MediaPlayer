@@ -11,5 +11,5 @@ export const MediaPlayerHandler: FileHandler = {
   image: MediaPlayerIcon,
   handler(file) {
     openFileWithApp("MediaPlayer", file);
-  }
-}
+  },
+};

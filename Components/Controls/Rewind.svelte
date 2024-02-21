@@ -8,6 +8,4 @@
   }
 </script>
 
-<button class="material-icons-round reverse" on:click={rewind}>
-  fast_rewind
-</button>
+<button class="material-icons-round reverse" on:click={rewind}> fast_rewind </button>

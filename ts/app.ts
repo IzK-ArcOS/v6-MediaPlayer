@@ -9,7 +9,7 @@ export const MediaPlayer: App = {
     description: "Play audio files",
     author: "Izaak Kuipers",
     version: "3.0.0",
-    icon: MediaPlayerIcon
+    icon: MediaPlayerIcon,
   },
   runtime: Runtime,
   content: AppSvelte,
@@ -23,16 +23,16 @@ export const MediaPlayer: App = {
     maximized: false,
     headless: false,
     fullscreen: false,
-    resizable: true
+    resizable: true,
   },
   controls: {
     minimize: true,
     maximize: true,
-    close: true
+    close: true,
   },
   acceleratorDescriptions: {
     "alt+o": "Open an audio file",
-    "alt+shift+o": "Open file location of audio file"
+    "alt+shift+o": "Open file location of audio file",
   },
-  glass: true
-}
+  glass: true,
+};

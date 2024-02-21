@@ -8,6 +8,4 @@
   }
 </script>
 
-<button class="material-icons-round forward" on:click={forward}>
-  fast_forward
-</button>
+<button class="material-icons-round forward" on:click={forward}> fast_forward </button>
