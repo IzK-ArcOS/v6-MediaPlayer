@@ -1,3 +1,4 @@
+import { SafeMode } from "$state/Desktop/ts/store";
 import { MediaPlayerIcon } from "$ts/images/apps";
 import { App } from "$types/app";
 import AppSvelte from "../App.svelte";
@@ -35,4 +36,5 @@ export const MediaPlayer: App = {
     "alt+shift+o": "Open file location of audio file",
   },
   glass: true,
+  loadCondition: () => !SafeMode.get(),
 };
