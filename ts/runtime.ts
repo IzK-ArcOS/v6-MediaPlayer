@@ -1,3 +1,4 @@
+import { createTrayIcon, disposeTrayIcon } from "$apps/Shell/ts/tray";
 import { getAppById, spawnApp, spawnOverlay } from "$ts/apps";
 import { AppRuntime } from "$ts/apps/runtime";
 import { MediaPlayerIcon } from "$ts/images/apps";
@@ -12,6 +13,7 @@ import { MimeTypeIcons } from "$ts/stores/filesystem";
 import { ProcessStack } from "$ts/stores/process";
 import { Store } from "$ts/writable";
 import type { App, AppMutator } from "$types/app";
+import TrayPopup from "../Components/TrayPopup.svelte";
 import { MediaPlayerAccelerators } from "./accelerators";
 import { MediaPlayerAltMenu } from "./altmenu";
 import { PlayerState } from "./types";
@@ -38,6 +40,8 @@ export class Runtime extends AppRuntime {
     if (process.args.length && typeof process.args[0] === "string") {
       this.handleOpenFile(process.args[0]);
     }
+
+    this._trayIcon();
   }
 
   async readFile(v: string) {
@@ -178,5 +182,26 @@ export class Runtime extends AppRuntime {
       this.pid,
       false
     );
+  }
+
+  private _trayIcon() {
+    const id = `MediaPlayer#${this.pid}`;
+
+    createTrayIcon({
+      identifier: id,
+      title: "Messages",
+      image: MediaPlayerIcon,
+      popup: {
+        width: 250,
+        height: 150,
+        component: TrayPopup,
+        runtime: this,
+        className: "media-player-tray-popup",
+      },
+    });
+
+    ProcessStack.processes.subscribe(() => {
+      if (!ProcessStack.isPid(this.pid, true)) disposeTrayIcon(id);
+    });
   }
 }

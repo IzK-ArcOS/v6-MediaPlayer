@@ -5,14 +5,6 @@
 
   const { State } = runtime;
 
-  function play() {
-    runtime.Play();
-  }
-
-  function pause() {
-    runtime.Pause();
-  }
-
   function toggle() {
     if ($State.paused) runtime.Play();
     else runtime.Pause();
