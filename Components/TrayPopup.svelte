@@ -5,7 +5,7 @@
 
   export let runtime: Runtime;
 
-  const { State, Loaded, appMutator } = runtime;
+  const { State, Loaded, appMutator, path } = runtime;
 
   let current = "--:--";
   let duration = "--:--";
@@ -34,11 +34,19 @@
 </div>
 
 <div class="controls">
-  <button class="material-icons-round reverse" on:click={rewind}> fast_rewind </button>
-  <button class="material-icons-round play suggested" on:click={toggle}>
+  <button class="material-icons-round reverse" on:click={rewind} disabled={!$path || !$Loaded}>
+    fast_rewind
+  </button>
+  <button
+    class="material-icons-round play suggested"
+    on:click={toggle}
+    disabled={!$path || !$Loaded}
+  >
     {$State.paused ? "play_arrow" : "pause"}
   </button>
-  <button class="material-icons-round forward" on:click={forward}> fast_forward </button>
+  <button class="material-icons-round forward" on:click={forward} disabled={!$path || !$Loaded}>
+    fast_forward
+  </button>
 </div>
 <Bar {runtime} />
 <div class="timestamps">
