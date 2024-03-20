@@ -1,5 +1,6 @@
 import { SafeMode } from "$state/Desktop/ts/store";
 import { MediaPlayerIcon } from "$ts/images/apps";
+import { HelpArticles } from "$ts/stores/articles";
 import { App } from "$types/app";
 import AppSvelte from "../App.svelte";
 import { Runtime } from "./runtime";
@@ -37,4 +38,5 @@ export const MediaPlayer: App = {
   },
   glass: true,
   loadCondition: () => !SafeMode.get(),
+  helpArticle: HelpArticles.mediaPlayer,
 };
