@@ -1,7 +1,7 @@
 <script lang="ts">
+  import "../css/tray.css";
   import { Runtime } from "../ts/runtime";
   import Bar from "./Bar.svelte";
-  import "../css/tray.css";
 
   export let runtime: Runtime;
 
