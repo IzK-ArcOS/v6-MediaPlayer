@@ -33,7 +33,7 @@
   flex-grow: 1;
   max-height: calc(100% - 90px);
   background-color: var(--button-glass-bg);
-  border-radius: 10px;
+  border-radius: var(--win-border-rad);
   margin-bottom: 20px;
   height: 350px;
   aspect-ratio: 16/9;
@@ -70,7 +70,7 @@
 }
 #MediaPlayer > div.body div.controls div.group {
   display: flex;
-  border-radius: 6px;
+  border-radius: var(--button-border-rad);
   overflow: hidden;
   gap: 10px;
 }

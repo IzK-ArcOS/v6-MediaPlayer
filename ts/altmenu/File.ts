@@ -21,7 +21,7 @@ export function FileMenu(runtime: Runtime): ContextMenuItem {
         action: () => {
           runtime.openFileLocation();
         },
-        disabled: () => !runtime.path.get(),
+        disabled: () => !runtime.path.get() || runtime.path.get().startsWith("@client"),
         accelerator: "Alt+Shift+O",
       },
       SEP_ITEM,
