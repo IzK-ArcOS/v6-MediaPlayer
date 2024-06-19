@@ -170,7 +170,7 @@ export class Runtime extends AppRuntime {
     return await FileProgress(
       {
         caption: "Loading this amazing file...",
-        subtitle: `Home/${pathToFriendlyPath(v)}`,
+        subtitle: `${pathToFriendlyPath(v)}`,
         icon: MediaPlayerIcon,
         max: 1,
         done: 0,
